@@ -40,6 +40,7 @@ public:
 
         vector<int>ans(n);
         int maxi=0;
+        ///calculate the maximum distance
         for(int i=0;i<m;i++)maxi=max(maxi,dfs(i,-1,adj2,k-1));
         for(int i=0;i<n;i++)ans[i]=dfs(i,-1,adj1,k)+maxi;
         return ans;
