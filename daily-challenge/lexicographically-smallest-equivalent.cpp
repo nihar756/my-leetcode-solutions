@@ -48,3 +48,43 @@ public:
 
     }
 };
+
+
+///optimal////
+class DSU{
+    public:
+    vector<int>u;
+    DSU(){
+        u.resize(26);
+        for(int i=0;i<26;i++)u[i]=i;
+    }
+
+    int findPar(int v){
+        if(u[v]==v)return v;
+        return u[v]=findPar(u[v]);
+    }
+
+    void unionBy(int l,int r){
+        l=findPar(l);
+        r=findPar(r);
+
+        if(l==r)return;
+        if(l<r)u[r]=l;
+        else u[l]=r;
+    }
+};
+
+class Solution {
+public:
+    string smallestEquivalentString1(string s1, string s2, string baseStr) {
+        DSU dsu;
+        for(int i=0;i<s1.size();i++){
+            dsu.unionBy(s1[i]-'a',s2[i]-'a');
+        }
+        string ans;
+        for(char c:baseStr){
+            ans+=dsu.findPar(c-'a')+'a';
+        }
+        return ans;
+    }
+};
